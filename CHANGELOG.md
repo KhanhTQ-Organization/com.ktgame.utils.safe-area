@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/KhanhTQ-Organization/com.ktgame.utils.safe-area/compare/v1.0.1...v1.0.2) (2026-05-06)
+
+
+### Bug Fixes
+
+* ud ([a96a410](https://github.com/KhanhTQ-Organization/com.ktgame.utils.safe-area/commit/a96a4108ae65888534a7313efffda06774174bff))
+
 ## [1.0.1](https://github.com/KhanhTQ-Organization/com.ktgame.utils.safe-area/compare/v1.0.0...v1.0.1) (2025-11-12)
 
 
