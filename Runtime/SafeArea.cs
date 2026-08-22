@@ -15,6 +15,7 @@ namespace com.ktgame.utils.safe_area
         }
 
         [SerializeField, EnumFlags] private PaddingType _padding = (PaddingType)Enum.Parse(typeof(PaddingType), (-1).ToString());
+        [SerializeField] private bool _avoidKeyboard = false;
 
         public PaddingType Padding
         {
@@ -55,6 +56,20 @@ namespace com.ktgame.utils.safe_area
             if (Padding.HasFlag(PaddingType.Bottom))
             {
                 paddingBottom = safeArea.y;
+            }
+            
+            if (_avoidKeyboard)
+            {
+#if UNITY_ANDROID || UNITY_IOS
+                if (TouchScreenKeyboard.visible)
+                {
+                    float kbHeight = TouchScreenKeyboard.area.height;
+                    if (kbHeight > paddingBottom)
+                    {
+                        paddingBottom = kbHeight;
+                    }
+                }
+#endif
             }
 
             if (Padding.HasFlag(PaddingType.Left))

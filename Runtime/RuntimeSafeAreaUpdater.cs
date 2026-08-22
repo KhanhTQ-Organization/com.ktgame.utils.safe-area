@@ -16,15 +16,35 @@ namespace com.ktgame.utils.safe_area
             _target.UpdateRect();
         }
 
+        private bool _lastKeyboardVisible;
+        private float _lastKeyboardHeight;
+
         private void Update()
         {
-            if (_safeArea == Screen.SafeArea)
+            bool needsUpdate = false;
+
+            if (_safeArea != Screen.SafeArea)
             {
-                return;
+                _safeArea = Screen.SafeArea;
+                needsUpdate = true;
             }
 
-            _safeArea = Screen.SafeArea;
-            _target.UpdateRect();
+#if UNITY_ANDROID || UNITY_IOS
+            bool isKbVisible = TouchScreenKeyboard.visible;
+            float kbHeight = isKbVisible ? TouchScreenKeyboard.area.height : 0f;
+
+            if (_lastKeyboardVisible != isKbVisible || Mathf.Abs(_lastKeyboardHeight - kbHeight) > 1f)
+            {
+                _lastKeyboardVisible = isKbVisible;
+                _lastKeyboardHeight = kbHeight;
+                needsUpdate = true;
+            }
+#endif
+
+            if (needsUpdate)
+            {
+                _target.UpdateRect();
+            }
         }
     }
 }
